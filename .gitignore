@@ -1,3 +1,8 @@
+src/input/*
+src/output/*
+src/config/key.txt
+src/logs/debug.txt
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
