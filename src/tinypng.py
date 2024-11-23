@@ -10,6 +10,12 @@ PATH_DEBUG = Path('src/logs/debug.txt')
 PATH_INPUT = Path('src/input')
 PATH_OUTPUT = Path('src/output')
 
+if not PATH_INPUT.exists():
+    PATH_INPUT.mkdir(parents=True)
+
+if not PATH_INPUT.exists():
+    PATH_INPUT.mkdir(parents=True)
+
 with open(Path(PATH_KEY), 'r') as f:
     tinify.key = f.read().strip()
 
@@ -22,18 +28,15 @@ n_success = 0
 n_failure = 0
 
 for name in pb()(names):
-    # print(name)
 
     try:
         source = tinify.from_file(PATH_INPUT / name)
         source.to_file(PATH_OUTPUT / name)
 
         n_success += 1
-        # print(f'Converted {name}')
 
     except Exception as e:
         n_failure += 1
-        # print(f'Failed to convert {name}')
 
         with open(PATH_DEBUG, 'a') as f:
             f.write(str(e))
