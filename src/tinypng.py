@@ -1,5 +1,12 @@
 # https://tinypng.com/developers/reference/python
 
+"""
+1. Add your API under src/config/key.txt
+2. Add your images under src/input
+3. Run the script
+4. Look for the tinified images under src/output
+"""
+
 import tinify
 from pathlib import Path
 from progressbar import ProgressBar as pb
@@ -33,6 +40,9 @@ for path in pb()(paths):
 
     try:
         source = tinify.from_file(PATH_INPUT / path.name)
+
+        if not PATH_OUTPUT.exists():
+            PATH_OUTPUT.mkdir(parents=True, exist_ok=True)
         
         if convert:
             source = source.convert(type='image/webp')
@@ -45,6 +55,9 @@ for path in pb()(paths):
 
     except Exception as e:
         n_failure += 1
+
+        if not PATH_DEBUG.exists():
+            PATH_DEBUG.parent.mkdir(parents=True, exist_ok=True)
 
         with open(PATH_DEBUG, 'a') as f:
             f.write(f'{path}\n{e}\n\n')
